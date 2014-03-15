@@ -27,8 +27,8 @@ def index():
     xbmcplugin.addSortMethod(pluginhandle, xbmcplugin.SORT_METHOD_LABEL)
     addDir("- "+translation(30002), "", "search", icon)
     content = getUrl(urlMain+"/videos")
-    match = re.compile('<a href="/videos/topics/(.+?)/">(.+?)</a>', re.DOTALL).findall(content)
-    for id, title in match:
+    match = re.compile('<a href="/videos/topics/([^\/]+)/"([^>]+)?>([^<]+)</a>', re.DOTALL).findall(content)
+    for id, ignored_grouping, title in match:
         if id=="48-hours":
             addDir(title, urlMain+"/latest/"+id+"/full-episodes/1", 'listEpisodes', icon)
         elif id=="60-minutes":
